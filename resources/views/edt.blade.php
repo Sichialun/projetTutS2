@@ -28,7 +28,7 @@
                     {!! csrf_field() !!}
                     <div class="field">
                         <label>Tâche</label>             
-                        <select name="tache" class="ui simple selection dropdown item">
+                        <select name="tache" class="ui simple selection dropdown item" required>
                             <option value="">Tâche souhaitée</option>
                                 <?php
                                 $editeurs1 = DB::table('tasks')->select('id','task')->get();
@@ -42,7 +42,7 @@
                     </div>
                     <div class="field">
                         <label>Salle</label>
-                        <select name="salle" class="ui simple selection scrolling dropdown item">
+                        <select name="salle" class="ui simple selection scrolling dropdown item" required>
                             <option value="">Salle souhaitée</option>
                                 <?php
                                 $editeurs2 = DB::table('rooms')->select('id','room')->get();
@@ -56,7 +56,7 @@
                     </div>
                     <div class="field">
                         <label>Médecins</label>
-                        <select name="medecin[]" multiple="" class="ui simple selection dropdown item">
+                        <select name="medecin[]" multiple="" class="ui simple selection dropdown item" required>
                             <option value="">Sélectionnez un ou plusieurs médecins</option>
                             <?php
                                 $editeurs3 = DB::table('users')->select('id','firstname','lastname')->whereIn('job_id', [1])->get();
@@ -72,17 +72,17 @@
                     </div>
                     <div class="field">
                         <label>Jour</label>
-                        <input type="number" placeholder="D" min="1" max="5" name="jour" style="width:60px">
-                        <input type="number" placeholder="W" min="1" max="52" name="semaine" style="width:65px">
-                        <input type="number" placeholder="Y" min="2017" max="" name="annee" style="width:80px">
+                        <input type="number" placeholder="D" min="1" max="5" name="jour" style="width:60px" required>
+                        <input type="number" placeholder="W" min="1" max="52" name="semaine" style="width:65px" required>
+                        <input type="number" placeholder="Y" min="2017" max="" name="annee" style="width:80px" required>
                     </div>
                     <div class="field">
                         <label>Heure de début</label>
-                        <input type="time" name="begin" min="08:00" max="16:00" style="width:120px">
+                        <input type="time" name="begin" min="08:00" max="16:00" step="3600" style="width:120px" required>
                     </div>
                     <div class="field">
                         <label>Heure de fin</label>
-                        <input type="time" name="end" min="10:00" max="18:00" style="width:120px">
+                        <input type="time" name="end" min="10:00" max="18:00" step="3600" style="width:120px" required>
                     </div>
                     <button class="ui button" type="submit">Ajouter</button>
                 </form>

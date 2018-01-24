@@ -20,8 +20,8 @@ class ActivitiesTableSeeder extends Seeder
                 'day' => 1,
                 'week' => 1,
                 'year' => 2018,
-                'started_at' => '08:00:00',
-                'ended_at' => '10:00:00'
+                'started_at' => '08:00',
+                'ended_at' => '10:00'
             ],
             [
                 'task_id' => 2,
@@ -29,8 +29,8 @@ class ActivitiesTableSeeder extends Seeder
                 'day' => 1,
                 'week' => 1,
                 'year' => 2018,
-                'started_at' => '10:00:00',
-                'ended_at' => '12:00:00'
+                'started_at' => '10:00',
+                'ended_at' => '12:00'
             ],
             [
                 'task_id' => 3,
@@ -38,8 +38,8 @@ class ActivitiesTableSeeder extends Seeder
                 'day' => 1,
                 'week' => 1,
                 'year' => 2018,
-                'started_at' => '14:00:00',
-                'ended_at' => '16:00:00'
+                'started_at' => '14:00',
+                'ended_at' => '16:00'
             ]
         ]);
     }

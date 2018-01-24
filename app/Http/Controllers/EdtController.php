@@ -196,11 +196,11 @@ class EdtController extends Controller
                                                               </div>
                                                               <div class="field">
                                                                   <label>Heure de début</label>
-                                                                  <input type="time" name="begin2" min="08:00" max="16:00" style="width:120px">
+                                                                  <input type="time" name="begin2" min="08:00" max="16:00" step="3600" style="width:120px">
                                                               </div>
                                                               <div class="field">
                                                                   <label>Heure de fin</label>
-                                                                  <input type="time" name="end2" min="10:00" max="18:00" style="width:120px">
+                                                                  <input type="time" name="end2" min="10:00" max="18:00" step="3600" style="width:120px">
                                                               </div>
                                                               <button class="ui button" type="submit">Modifier</button>
                                                           </form>
@@ -273,7 +273,7 @@ class EdtController extends Controller
      */
     public function update(Request $request, $activity)
     {
-        Activity::find($activity)->update([
+        Activity::find($activity)->update(array_filter([
             'task_id' => $request->tache2,
             'room_id' => $request->salle2,
             'day' => $request->jour2,
@@ -281,7 +281,7 @@ class EdtController extends Controller
             'year' => $request->annee2,
             'started_at' => $request->begin2,
             'ended_at' => $request->end2,
-        ]);
+        ]));
 
         $message = new MessageBag();
         $message->add('success', "L'activité a bien été modifiée.");
