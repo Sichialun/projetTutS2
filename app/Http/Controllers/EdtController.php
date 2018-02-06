@@ -190,9 +190,7 @@ class EdtController extends Controller
                                                               </div>
                                                               <div class="field">
                                                                   <label>Jour</label>
-                                                                  <input type="number" placeholder="D" min="1" max="5" name="jour2" style="width:60px">
-                                                                  <input type="number" placeholder="W" min="1" max="52" name="semaine2" style="width:65px">
-                                                                  <input type="number" placeholder="Y" min="2017" max="" name="annee2" style="width:80px">
+                                                                  <input type="date" name="date2" required>  
                                                               </div>
                                                               <div class="field">
                                                                   <label>Heure de début</label>
@@ -240,12 +238,17 @@ class EdtController extends Controller
      */
     public function create(Request $request)
     {
+        $time = strtotime($request->date);
+        $day = date('N', $time); //jour de la semaine (1 à 5)
+        $week = date('W', $time); //numéro de semaine dans l'année
+        $year = date('Y', $time); //année sur 4 chiffres
+
         $activite = Activity::create([
             'task_id' => $request->tache,
             'room_id' => $request->salle,
-            'day' => $request->jour,
-            'week' => $request->semaine,
-            'year' => $request->annee,
+            'day' => $day,
+            'week' => (int)$week, //(int) pour enlever le zéro devant (03 -> 3)
+            'year' => $year,
             'started_at' => $request->begin,
             'ended_at' => $request->end,
         ]);
@@ -273,12 +276,17 @@ class EdtController extends Controller
      */
     public function update(Request $request, $activity)
     {
+        $time = strtotime($request->date2);
+        $day = date('N', $time); //jour de la semaine (1 à 5)
+        $week = date('W', $time); //numéro de semaine dans l'année
+        $year = date('Y', $time); //année sur 4 chiffres
+
         Activity::find($activity)->update(array_filter([
             'task_id' => $request->tache2,
             'room_id' => $request->salle2,
-            'day' => $request->jour2,
-            'week' => $request->semaine2,
-            'year' => $request->annee2,
+            'day' => $day,
+            'week' => (int)$week,
+            'year' => $year,
             'started_at' => $request->begin2,
             'ended_at' => $request->end2,
         ]));

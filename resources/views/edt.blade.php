@@ -72,9 +72,7 @@
                     </div>
                     <div class="field">
                         <label>Jour</label>
-                        <input type="number" placeholder="D" min="1" max="5" name="jour" style="width:60px" required>
-                        <input type="number" placeholder="W" min="1" max="52" name="semaine" style="width:65px" required>
-                        <input type="number" placeholder="Y" min="2017" max="" name="annee" style="width:80px" required>
+                        <input type="date" name="date" required>  
                     </div>
                     <div class="field">
                         <label>Heure de début</label>
