@@ -175,7 +175,7 @@ class EdtController extends Controller
                                                               </div>
                                                               <div class="field">
                                                                   <label>Médecins</label>
-                                                                  <select name="medecin2[]" multiple="" class="ui simple selection disabled dropdown item">
+                                                                  <select name="medecin2[]" multiple="" class="ui simple selection dropdown item">
                                                                       <option value="">Sélectionnez un ou plusieurs médecins</option>';
                                                                           foreach ($editeurs3 as $editeur30) {
                                                                           $planning .= '   
@@ -190,7 +190,7 @@ class EdtController extends Controller
                                                               </div>
                                                               <div class="field">
                                                                   <label>Jour</label>
-                                                                  <input type="date" name="date2" required>  
+                                                                  <input type="date" name="date2">  
                                                               </div>
                                                               <div class="field">
                                                                   <label>Heure de début</label>
@@ -256,7 +256,6 @@ class EdtController extends Controller
         $insertedId = $activite->id;
 
         $Col1_Array = $_POST['medecin'];
-        print_r($Col1_Array);
         foreach($Col1_Array as $selectValue){
             ActivityGroup::create([
                 'user_id' => $selectValue, //$request->medecin,
@@ -281,15 +280,40 @@ class EdtController extends Controller
         $week = date('W', $time); //numéro de semaine dans l'année
         $year = date('Y', $time); //année sur 4 chiffres
 
-        Activity::find($activity)->update(array_filter([
-            'task_id' => $request->tache2,
-            'room_id' => $request->salle2,
-            'day' => $day,
-            'week' => (int)$week,
-            'year' => $year,
-            'started_at' => $request->begin2,
-            'ended_at' => $request->end2,
-        ]));
+        if ($request->date2) {
+          Activity::find($activity)->update(array_filter([
+              'task_id' => $request->tache2,
+              'room_id' => $request->salle2,
+              'day' => $day,
+              'week' => (int)$week,
+              'year' => $year,
+              'started_at' => $request->begin2,
+              'ended_at' => $request->end2,
+          ]));
+        }
+
+        else {
+          Activity::find($activity)->update(array_filter([
+              'task_id' => $request->tache2,
+              'room_id' => $request->salle2,
+              'started_at' => $request->begin2,
+              'ended_at' => $request->end2,
+          ]));
+        }
+
+        if ($request->medecin2) {
+          ActivityGroup::where('activity_id', '=', $request->id)->delete();
+
+          $insertedId = $request->id;
+
+          $Col1_Array = $_POST['medecin2'];
+          foreach($Col1_Array as $selectValue){
+              ActivityGroup::create([
+                  'user_id' => $selectValue, //$request->medecin2,
+                  'activity_id' => $insertedId,
+              ]);
+          }
+        }
 
         $message = new MessageBag();
         $message->add('success', "L'activité a bien été modifiée.");
